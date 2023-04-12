@@ -11,75 +11,75 @@ msgstr ""
 "PO-Revision-Date: 2019-09-30T06:56:43-07:00\n"
 "Language: \n"
 
-msgid "plugins.generic.fixSSL.displayName"
+msgid "plugins.generic.webhook.displayName"
 msgstr "Webhooks"
 
-msgid "plugins.generic.fixSSL.description"
-msgstr "Stupid plugin which just hijacks the baseURL function."
+msgid "plugins.generic.webhook.description"
+msgstr "Send webhooks to external services when certain events occur in OJS."
 
-msgid "plugins.generic.fixSSL.settings"
+msgid "plugins.generic.webhook.settings"
 msgstr "Settings"
 
-msgid "plugins.generic.fixSSL.settings.title"
+msgid "plugins.generic.webhook.settings.title"
 msgstr "Webhooks"
 
-msgid "plugins.generic.fixSSL.settings.description"
+msgid "plugins.generic.webhook.settings.description"
 msgstr "Set up your webhooks."
 
-msgid "plugins.generic.fixSSL.settings.addWebhook"
+msgid "plugins.generic.webhook.settings.addWebhook"
 msgstr "Add webhook"
 
-msgid "plugins.generic.fixSSL.event.pubEdit"
+msgid "plugins.generic.webhook.event.pubEdit"
 msgstr "Publication edited"
 
-msgid "plugins.generic.fixSSL.event.add"
+msgid "plugins.generic.webhook.event.add"
 msgstr "Submission added"
 
-msgid "plugins.generic.fixSSL.event.decision"
+msgid "plugins.generic.webhook.event.decision"
 msgstr "Editorial decision"
 
-msgid "plugins.generic.fixSSL.event.publicationPublished"
+msgid "plugins.generic.webhook.event.publicationPublished"
 msgstr "Publication published"
 
 
-msgid "plugins.generic.fixSSL.event.publicationEdit"
+msgid "plugins.generic.webhook.event.publicationEdit"
 msgstr "Publication edit"
 
-msgid "plugins.generic.fixSSL.event.confirmReview"
+msgid "plugins.generic.webhook.event.confirmReview"
 msgstr "Reviewer confirmation"
 
-msgid "plugins.generic.fixSSL.event.updateStatus"
+msgid "plugins.generic.webhook.event.updateStatus"
 msgstr "Submission status change"
 
-msgid "plugins.generic.fixSSL.settings.webhookUrl"
+msgid "plugins.generic.webhook.settings.webhookUrl"
 msgstr "URL"
 
-msgid "plugins.generic.fixSSL.manager.settings.removeWebhook"
+msgid "plugins.generic.webhook.manager.settings.removeWebhook"
 msgstr "\f1f8"
 
-msgid "plugins.generic.fixSSL.manager.settings.saveWebhook"
+msgid "plugins.generic.webhook.manager.settings.saveWebhook"
 msgstr "Save changes"
 
-msgid "plugins.generic.fixSSL.settings.addWebhook"
+msgid "plugins.generic.webhook.settings.addWebhook"
 msgstr "+"
 
-msgid "plugins.generic.fixSSL.settings.disableWebhook"
+msgid "plugins.generic.webhook.settings.disableWebhook"
 msgstr "Disable"
 
-msgid "plugins.generic.fixSSL.settings.testWebhook"
+msgid "plugins.generic.webhook.settings.testWebhook"
 msgstr "Test"
 
-msgid "plugins.generic.fixSSL.settings.removeWebhook"
+msgid "plugins.generic.webhook.settings.removeWebhook"
 msgstr ""
 
-msgid "plugins.generic.fixSSL.linkactions.settings"
+msgid "plugins.generic.webhook.linkactions.settings"
 msgstr "Settings"
 
-msgid "plugins.generic.fixSSL.manager.addWebhook.button"
+msgid "plugins.generic.webhook.manager.addWebhook.button"
 msgstr "+"
 
-msgid "plugins.generic.fixSSL.validation.invalidUrl"
+msgid "plugins.generic.webhook.validation.invalidUrl"
 msgstr "The URL is not valid."
 
-msgid "plugins.generic.fixSSL.validation.noEventsSelected"
+msgid "plugins.generic.webhook.validation.noEventsSelected"
 msgstr "No events are selected."

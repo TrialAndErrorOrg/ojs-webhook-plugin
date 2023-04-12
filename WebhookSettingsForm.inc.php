@@ -2,17 +2,17 @@
 
 import('lib.pkp.classes.form.Form');
 
-class FixSSLSettingsForm extends Form
+class WebhookSettingsForm extends Form
 {
     /** @var int Context ID */
     var $contextId;
 
-    /** @var FixSSLPlugin */
+    /** @var WebhookPlugin */
     var $plugin;
 
     /**
      * Constructor
-     * @param FixSSLPlugin $plugin
+     * @param WebhookPlugin $plugin
      * @param int $contextId
      */
     public function __construct($plugin, $contextId)
@@ -115,12 +115,12 @@ class FixSSLSettingsForm extends Form
 
         foreach ($webhooks as $index => $webhook) {
             if (empty($webhook['url']) || !filter_var($webhook['url'], FILTER_VALIDATE_URL)) {
-                $this->addError("webhookUrl-{$index}-error", __('plugins.generic.fixSSL.validation.invalidUrl'));
+                $this->addError("webhookUrl-{$index}-error", __('plugins.generic.webhook.validation.invalidUrl'));
                 $isValid = false;
             }
 
             if (empty($webhook['events']) || !is_array($webhook['events'])) {
-                $this->addError("webhookEvents-{$index}-error", __('plugins.generic.fixSSL.validation.noEventsSelected'));
+                $this->addError("webhookEvents-{$index}-error", __('plugins.generic.webhook.validation.noEventsSelected'));
                 $isValid = false;
             }
         }

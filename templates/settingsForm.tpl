@@ -1,7 +1,7 @@
     <script>
         $(function() {ldelim}
         // Attach the form handler.
-        $('#fixSSLSettingsForm').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
+        $('#webhookSettingsForm').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
         {rdelim});
         {literal}
             $(document).ready(function() {
@@ -120,7 +120,7 @@
             // Helper function to test a webhook
             async function testWebhook(webhookUrl) {
                 const  url = '{/literal}{$apiUrl}{literal}'
-                const form = document.querySelector('#fixSSLSettingsForm');
+                const form = document.querySelector('#webhookSettingsForm');
                 const csrfInput = form.querySelector('input[name="csrfToken"]');
                 const csrfToken = csrfInput.value;
 
@@ -327,7 +327,7 @@
         }
     </style>
     <div class="webhook template">
-        <label for="webhookUrl">{translate key="plugins.generic.fixSSL.settings.webhookUrl"}</label>
+        <label for="webhookUrl">{translate key="plugins.generic.webhook.settings.webhookUrl"}</label>
 
         <div class="webhook-url-error" id="webhookUrl-error" style="display: none; color: red;"></div>
         <div class="webhook-input">
@@ -339,7 +339,7 @@
                         {if !isset($webhookData.disabled) || !$webhookData.disabled}checked{/if}>
                     <span class="slider"></span>
                 </label>
-                {fbvElement type="button" class="removeButton pkp_button_offset" label="plugins.generic.fixSSL.settings.removeWebhook" id="removeWebhook"}
+                {fbvElement type="button" class="removeButton pkp_button_offset" label="plugins.generic.webhook.settings.removeWebhook" id="removeWebhook"}
             </div>
         </div>
         <div class="webhook-events-error" id="webhookEvents-error" style="display: none; color: red;">
@@ -347,24 +347,24 @@
         <ul class="options-row">
             {assign var="eventTypes" value=$webhookEventManager->getEvents()}
             {foreach from=$eventTypes item=eventType key=eventTypeKey}
-                {fbvElement type="checkbox" value=$eventType class="webhookEvent" label="plugins.generic.fixSSL.event.{$eventType}"
+                {fbvElement type="checkbox" value=$eventType class="webhookEvent" label="plugins.generic.webhook.event.{$eventType}"
                 id=$eventType name="webhookEvents"}
             {/foreach}
         </ul>
     </div>
-    <form class="pkp_form" id="fixSSLSettingsForm" method="post"
+    <form class="pkp_form" id="webhookSettingsForm" method="post"
         action="{url router=$smarty.const.ROUTE_COMPONENT op="manage" category="generic" plugin=$pluginName verb="settings" save=true}">
         {csrf}
 
-        {include file="controllers/notification/inPlaceNotification.tpl" notificationId="fixSSLNotification"}
+        {include file="controllers/notification/inPlaceNotification.tpl" notificationId="webhookNotification"}
 
-        {fbvFormSection title="plugins.generic.fixSSL.settings.title"}
+        {fbvFormSection title="plugins.generic.webhook.settings.title"}
         {fbvFormArea id="webhooksList"}
         {* this is where the things are added *}
         {/fbvFormArea}
         {/fbvFormSection}
 
-        {fbvElement type="button" id="addWebhook" class="submitFormButton" label="plugins.generic.fixSSL.settings.addWebhook"}
+        {fbvElement type="button" id="addWebhook" class="submitFormButton" label="plugins.generic.webhook.settings.addWebhook"}
 
         {fbvFormButtons}
 </form>

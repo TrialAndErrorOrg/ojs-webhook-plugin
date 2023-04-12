@@ -2,7 +2,7 @@
 class WebhookEventManager
 {
     /**
-     * @var FixSSLPlugin
+     * @var WebhookPlugin
      */
     private $plugin;
     private $webhooksByEvent;
@@ -10,7 +10,7 @@ class WebhookEventManager
     private $events = [];
 
 
-    public function __construct(FixSSLPlugin $plugin)
+    public function __construct(WebhookPlugin $plugin)
     {
         $this->plugin = $plugin;
         $this->webhooksByEvent = $plugin->getSetting($plugin->getRequest()->getContext()->getId(), 'webhooksByEvent');

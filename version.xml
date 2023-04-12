@@ -2,19 +2,18 @@
 <!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
 
 <!--
-  * plugins/generic/fixSSL/version.xml
+  * plugins/generic/webhook/version.xml
   *
-  * Copyright (c) 2014-2021 Simon Fraser University
-  * Copyright (c) 2003-2021 John Willinsky
+  * Copyright (c) 2023 Thomas F. K. Jorna, Center of Trial and Error
   * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
   *
   * Plugin version information.
   -->
 <version>
-  <application>fixSSL</application>
+  <application>webhook</application>
   <type>plugins.generic</type>
   <release>1.1.0.0</release>
   <date>2022-06-13</date>
   <lazy-load>1</lazy-load>
-  <class>FixSSLPlugin</class>
+  <class>WebhookPlugin</class>
 </version>

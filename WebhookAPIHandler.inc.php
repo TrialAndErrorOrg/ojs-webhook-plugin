@@ -10,14 +10,14 @@ use Slim\Http\Response;
 class WebhookAPIHandler extends APIHandler
 {
     /**
-     * @var FixSSLPlugin
+     * @var WebhookPlugin
      */
     protected $plugin;
 
 
     public function __construct()
     {
-        $this->plugin = PluginRegistry::getPlugin('generic', 'fixsslplugin');
+        $this->plugin = PluginRegistry::getPlugin('generic', 'webhookplugin');
 
         $this->_handlerPath = 'webhook';
         $this->_endpoints = array(

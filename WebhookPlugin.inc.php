@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @file plugins/generic/fixSSL/FixSSLPlugin.inc.php
+ * @file plugins/generic/webhook/WebhookPlugin.inc.php
  *
  * Copyright (c) 2014-2021 Simon Fraser University
  * Copyright (c) 2003-2021 John Willinsky
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class FixSSLPlugin
- * @ingroup plugins_block_fixssl
+ * @class WebhookPlugin
+ * @ingroup plugins_block_webhook
  *
  * @brief Fix SSL plugin class
  */
@@ -31,7 +31,7 @@
 
 import('lib.pkp.classes.plugins.GenericPlugin');
 
-class FixSSLPlugin extends GenericPlugin
+class WebhookPlugin extends GenericPlugin
 {
 
 	var $submissionMap = array('', 'accept', 'revisions', 'resubmit', 'decline', '', '', 'production', 'review', '', '', '', '', '', '', '', 'round');
@@ -46,7 +46,7 @@ class FixSSLPlugin extends GenericPlugin
 	 */
 	public function getDisplayName()
 	{
-		return __('plugins.generic.fixSSL.displayName');
+		return __('plugins.generic.webhook.displayName');
 	}
 
 	/**
@@ -55,7 +55,7 @@ class FixSSLPlugin extends GenericPlugin
 	 */
 	public function getDescription()
 	{
-		return __('plugins.generic.fixSSL.description');
+		return __('plugins.generic.webhook.description');
 	}
 
 
@@ -284,7 +284,7 @@ class FixSSLPlugin extends GenericPlugin
 						$router->url($request, null, null, 'manage', null, array('verb' => $action, 'plugin' => $this->getName(), 'category' => 'generic')),
 						$this->getDisplayName()
 					),
-					__("plugins.generic.fixSSL.linkactions.$action"),
+					__("plugins.generic.webhook.linkactions.$action"),
 					null
 				),
 				$pluginActions
@@ -305,8 +305,8 @@ class FixSSLPlugin extends GenericPlugin
 				$templateMgr->assign('webhookEventManager', $this->webhookEventManager);
 				// $templateMgr->registerPlugin('function', 'plugin_url', array($this, 'smartyPluginUrl'));
 
-				$this->import('FixSSLSettingsForm');
-				$form = new FixSSLSettingsForm($this, $request->getContext()->getId());
+				$this->import('WebhookSettingsForm');
+				$form = new WebhookSettingsForm($this, $request->getContext()->getId());
 
 				if ($request->getUserVar('save')) {
 					$form->readInputData();
