@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-09-30T06:56:43-07:00\n"
+"PO-Revision-Date: 2019-09-30T06:56:43-07:00\n"
+"Language: \n"
+
+msgid "plugins.generic.fixSSL.displayName"
+msgstr "Webhooks"
+
+msgid "plugins.generic.fixSSL.description"
+msgstr "Stupid plugin which just hijacks the baseURL function."
+
+msgid "plugins.generic.fixSSL.settings"
+msgstr "Settings"
+
+msgid "plugins.generic.fixSSL.settings.title"
+msgstr "Webhooks"
+
+msgid "plugins.generic.fixSSL.settings.description"
+msgstr "Set up your webhooks."
+
+msgid "plugins.generic.fixSSL.settings.addWebhook"
+msgstr "Add webhook"
+
+msgid "plugins.generic.fixSSL.event.pubEdit"
+msgstr "Publication edited"
+
+msgid "plugins.generic.fixSSL.event.add"
+msgstr "Submission added"
+
+msgid "plugins.generic.fixSSL.event.decision"
+msgstr "Editorial decision"
+
+msgid "plugins.generic.fixSSL.event.publicationPublished"
+msgstr "Publication published"
+
+
+msgid "plugins.generic.fixSSL.event.publicationEdit"
+msgstr "Publication edit"
+
+msgid "plugins.generic.fixSSL.event.confirmReview"
+msgstr "Reviewer confirmation"
+
+msgid "plugins.generic.fixSSL.event.updateStatus"
+msgstr "Submission status change"
+
+msgid "plugins.generic.fixSSL.settings.webhookUrl"
+msgstr "URL"
+
+msgid "plugins.generic.fixSSL.manager.settings.removeWebhook"
+msgstr "\f1f8"
+
+msgid "plugins.generic.fixSSL.manager.settings.saveWebhook"
+msgstr "Save changes"
+
+msgid "plugins.generic.fixSSL.settings.addWebhook"
+msgstr "+"
+
+msgid "plugins.generic.fixSSL.settings.disableWebhook"
+msgstr "Disable"
+
+msgid "plugins.generic.fixSSL.settings.testWebhook"
+msgstr "Test"
+
+msgid "plugins.generic.fixSSL.settings.removeWebhook"
+msgstr ""
+
+msgid "plugins.generic.fixSSL.linkactions.settings"
+msgstr "Settings"
+
+msgid "plugins.generic.fixSSL.manager.addWebhook.button"
+msgstr "+"
+
+msgid "plugins.generic.fixSSL.validation.invalidUrl"
+msgstr "The URL is not valid."
+
+msgid "plugins.generic.fixSSL.validation.noEventsSelected"
+msgstr "No events are selected."
