@@ -15,8 +15,7 @@
 
                 // Load existing webhooks
                 let existingWebhooks = {/literal}{$webhooks|json_encode}{literal};
-                console.log(existingWebhooks)
-                existingWebhooks.forEach((webhook) => {
+                existingWebhooks?.forEach((webhook) => {
                     if (webhook.disabled === '1') {
                         webhook.disabled = false;
                     }
@@ -54,7 +53,7 @@
                     }
 
                     let eventCheckboxes = newWebhook.querySelectorAll('input[name="webhookEvents"]');
-                    eventCheckboxes.forEach((checkbox) => {
+                    eventCheckboxes?.forEach((checkbox) => {
                         let eventTypeKey = checkbox.value;
                         checkbox.name = `webhooks[${webhookKey}][events][${eventTypeKey}]`;
                         checkbox.id = `webhookEvents-new-${eventTypeKey}`;
@@ -90,7 +89,7 @@
                 }
 
 
-                document.querySelectorAll('.testWebhook').forEach((button) => {
+                document.querySelectorAll('.testWebhook')?.forEach((button) => {
                     button.addEventListener('click', function() {
                         let webhookUrlInput = button.closest('.webhook').querySelector(
                             'input[type="text"]');
@@ -159,19 +158,6 @@
             }
         {/literal}
     </script>
-
-    {foreach from=$formErrors item=error key=key}
-        <script>
-            {
-                console.log("something")
-                const errorElement = document.getElementById('{$key|escape:'javascript'}-error');
-                if (errorElement) {
-                    errorElement.textContent = '{$error|escape:'javascript'}';
-                    errorElement.style.display = 'block';
-                }
-            }
-        </script>
-    {/foreach}
 
     <style>
         .template {

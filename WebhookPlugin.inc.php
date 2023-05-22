@@ -31,11 +31,60 @@
 
 import('lib.pkp.classes.plugins.GenericPlugin');
 
+
 class WebhookPlugin extends GenericPlugin
 {
 
 	var $submissionMap = array('', 'accept', 'revisions', 'resubmit', 'decline', '', '', 'production', 'review', '', '', '', '', '', '', '', 'round');
-	var $urls = ['https://auto.trialanderror.org/webhook-test/cda048ab-cbb1-42d4-8fa7-3116f20bea48', 'https://auto.trialanderror.org/webhook/cda048ab-cbb1-42d4-8fa7-3116f20bea48', 'https://play.svix.com/in/e_OlxpPyfrm1bj6kOtaAWFX6v2w91/', 'https://typedwebhook.tools/webhook/0d27b246-0df7-49d5-9629-84582558c664'];
+
+	var $decisionMap = [
+		//  SUBMISSION_EDITOR_DECISION_ACCEPT
+		1 => 'accept',
+
+		//	SUBMISSION_EDITOR_DECISION_PENDING_REVISIONS
+		2 => 'requestRevisions',
+
+		//	SUBMISSION_EDITOR_DECISION_RESUBMIT
+		3 => 'resubmit',
+
+		//	SUBMISSION_EDITOR_DECISION_DECLINE
+		4 => 'decline',
+
+		//	SUBMISSION_EDITOR_DECISION_SEND_TO_PRODUCTION
+		7 => 'sendToProduction',
+
+		//	SUBMISSION_EDITOR_DECISION_EXTERNAL_REVIEW
+		8 => 'skipReview',
+
+		// SUBMISSION_EDITOR_DECISION_INITIAL_DECLINE
+		9 => 'initialDecline',
+
+		//SUBMISSION_EDITOR_DECISION_NEW_ROUND
+		16 => 'newRound',
+
+		// SUBMISSION_EDITOR_DECISION_REVERT_DECLINE
+		17 => 'revertDecline',
+	];
+
+	var $statusMap = [
+		1 => [
+			'label' => 'queued',
+			'text' => 'submissions.queued'
+		],
+		3 => [
+			'label' => 'published',
+			'text' => 'submission.status.published'
+		],
+		4 => [
+			'label' => 'declined',
+			'text' => 'submission.status.declined'
+		],
+		5 => [
+			'label' => 'scheduled',
+			'text' => 'submission.status.scheduled'
+		]
+	];
+	// var $urls = ['https://auto.trialanderror.org/webhook-test/cda048ab-cbb1-42d4-8fa7-3116f20bea48', 'https://auto.trialanderror.org/webhook/cda048ab-cbb1-42d4-8fa7-3116f20bea48', 'https://play.svix.com/in/e_OlxpPyfrm1bj6kOtaAWFX6v2w91/', 'https://typedwebhook.tools/webhook/0d27b246-0df7-49d5-9629-84582558c664'];
 
 
 	/** @var WebhookEventManager */
@@ -79,26 +128,6 @@ class WebhookPlugin extends GenericPlugin
 				['updateStatus', 'Submission::updateStatus', [$this, 'updateStatus']],
 			];
 
-			error_log("Default events" . json_encode($defaultEvents[0][0]));
-			// $this->webhookEventManager->addEvent('publicationEdit', 'Publication::validate', [$this, 'handleEditPublication']);
-
-			// // Add other events without custom data provider functions
-			// $this->webhookEventManager->addEvent('decision', 'EditorAction::recordDecision', [$this, 'editorDecision']);
-			// $this->webhookEventManager->addEvent('add', 'Submission::add', [$this, 'addSubmission']);
-			// $this->webhookEventManager->addEvent('confirmReview', 'ReviewerAction::confirmReview', [$this, 'confirmReview']);
-			// $this->webhookEventManager->addEvent('updateStatus', 'Submission::updateStatus', [$this, 'updateStatus']);
-
-			// HookRegistry::register(
-			// 	'EditorAction::recordDecision',
-			// 	[$this, 'editorDecision']
-			// );
-			// HookRegistry::register('Submission::add', [$this, 'newSubmission']);
-			// HookRegistry::register('ReviewerAction::confirmReview', [$this, 'confirmReview']);
-			// HookRegistry::register('Submission::updateStatus', [$this, 'updateStatus']);
-
-			// HookRegistry::register('Publication::validate', [$this, 'handleEditPublication']);
-
-
 			HookRegistry::call('Plugin::Webhook::addEvent', [&$defaultEvents]);
 
 			foreach ($defaultEvents as $event) {
@@ -121,10 +150,6 @@ class WebhookPlugin extends GenericPlugin
 				return false;
 			});
 
-			// function (string $eventName, string $hookName, ?callable $dataProvider = null) {
-			// 	$this->webhookEventManager->addEvent($eventName, $hookName, $dataProvider);
-			// });
-
 		}
 		return true;
 	}
@@ -146,23 +171,72 @@ class WebhookPlugin extends GenericPlugin
 	{
 		list($submission, $editorDecision, $result, $recommendation) = $args;
 
-		// error_log(json_encode($args));
-		// error_log(json_encode($this->submissionMap));
-		return ["submission" => $submission, "decision" => $editorDecision, "result" => $result, "recommendation" => $recommendation];
-		// error_log(json_encode($results));
-		// return false;
+		/** @var Submission $submission */
+		$submission = $args[0];
+		$editorDecision = $args[1];
+
+		$decisionLabel = $this->decisionMap[$editorDecision['decision']] ?? 'unknown';
+
+		$decisionText = __('editor.submission.decision.' . $decisionLabel);
+
+		$editorDecision['decisionText'] = $decisionText;
+		$editorDecision['decisionLabel'] = $decisionLabel;
+
+
+		$payload = ["submission" => $submission, "decision" => $editorDecision, "result" => $result, "recommendation" => $recommendation];
+
+		error_log(json_encode($payload));
+
+		return $payload;
 	}
 	public function addSubmission(string $hookName, $args)
 	{
-		list($submission, $request) = $args;
+		/** @var Submission $submission */
+		$submission = $args[0];
+
+		/** @var Request $request*/
+		$request = $args[1];
+
 		return ["submission" => $submission, "request" => $request];
-		// return false;
 	}
 
 	public function updateStatus(string $hookname, $args)
 	{
-		list($status, $submission) = $args;
-		return ["status" => $status, "submission" => $submission];
+		/** @var number $status */
+		$status = $args[0];
+		/** @var Submission $submission */
+		$submission = $args[1];
+
+		$newStatus = $status;
+		if ($status !== STATUS_DECLINED) {
+
+			$newStatus = STATUS_QUEUED;
+			$publication = $submission->getCurrentPublication();
+			if ($publication && $publication->getData('status') === STATUS_PUBLISHED) {
+				$newStatus = STATUS_PUBLISHED;
+			}
+			if ($publication && $publication->getData('status') === STATUS_SCHEDULED) {
+				$newStatus = STATUS_SCHEDULED;
+			}
+		}
+		$statusLabel = $this->statusMap[$status] ? $this->statusMap[$status]['label'] : 'unknown';
+		$statusTextLabel = $statusLabel ? $this->statusMap[$status]['text'] : null;
+		$statusText = $statusTextLabel ? __($statusTextLabel) : null;
+
+		$newStatusLabel = $this->statusMap[$newStatus] ? $this->statusMap[$newStatus]['label'] : 'unknown';
+		$newStatusTextLabel = $newStatusLabel ? $this->statusMap[$newStatus]['text'] : null;
+		$newStatusText = $newStatusTextLabel ? __($newStatusTextLabel) : null;
+
+
+		return [
+			"status" => $status,
+			"statusLabel" => $statusLabel,
+			"statusText" => $statusText,
+			"newStatus" => $newStatus,
+			"newStatusLabel" => $newStatusLabel,
+			"newStatusText" => $newStatusText,
+			"submission" => $submission
+		];
 		// return false;
 	}
 	public function confirmReview(string $hookName, $args)
