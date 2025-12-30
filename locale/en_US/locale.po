@@ -55,7 +55,7 @@ msgid "plugins.generic.webhook.settings.webhookUrl"
 msgstr "URL"
 
 msgid "plugins.generic.webhook.manager.settings.removeWebhook"
-msgstr "\f1f8"
+msgstr "Remove"
 
 msgid "plugins.generic.webhook.manager.settings.saveWebhook"
 msgstr "Save changes"
@@ -70,7 +70,7 @@ msgid "plugins.generic.webhook.settings.testWebhook"
 msgstr "Test"
 
 msgid "plugins.generic.webhook.settings.removeWebhook"
-msgstr ""
+msgstr "Remove"
 
 msgid "plugins.generic.webhook.linkactions.settings"
 msgstr "Settings"

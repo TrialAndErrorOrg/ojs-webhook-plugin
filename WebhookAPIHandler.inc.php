@@ -36,7 +36,7 @@ class WebhookAPIHandler extends APIHandler
     /**
      * @copydoc APIHandler::authorize
      */
-    function authorize(\Request $request, &$args, $roleAssignments)
+    function authorize($request, &$args, $roleAssignments)
     {
         error_log("HHohashtasht");
         import('lib.pkp.classes.security.authorization.PolicySet');
@@ -57,7 +57,7 @@ class WebhookAPIHandler extends APIHandler
      * @param $response Response object
      * @param array $args arguments
      */
-    public function handleWebhook(Request $slimRequest, Response $response, $args)
+    public function handleWebhook($slimRequest, $response, $args)
     {
         // Check if the user has the required permissions
 

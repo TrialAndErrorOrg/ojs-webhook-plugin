@@ -29,17 +29,13 @@ class WebhookSettingsForm extends Form
     /**
      * @copydoc Form::fetch()
      */
-    function fetch(Request $request, $template = null, $display = false)
+    function fetch($request, $template = null, $display = false)
     {
         $templateMgr = TemplateManager::getManager($request);
         $templateMgr->assign('pluginName', $this->plugin->getName());
 
         $apiUrl = $request->getBaseUrl() . '/' . 'index.php' . '/' . $request->getContext()->getPath() . '/' . 'api' . '/' . 'v1' . '/' . 'webhook';
         $templateMgr->assign('apiUrl', $apiUrl);
-
-
-
-
 
 
         return parent::fetch($request, $template, $display);
@@ -63,10 +59,10 @@ class WebhookSettingsForm extends Form
      * 
      * @copydoc Form::execute()
      */
-    public function execute($request, ...$functionArgs)
+    public function execute(...$functionArgs)
     {
 
-        parent::execute($request, ...$functionArgs);
+        parent::execute(...$functionArgs);
         $plugin = $this->plugin;
         $contextId = $this->contextId;
 
@@ -99,7 +95,7 @@ class WebhookSettingsForm extends Form
         error_log("webhook data: " . json_encode($webhooks));
 
         $notificationManager = new NotificationManager();
-        $notificationManager->createTrivialNotification($request->getUser()->getId(), NOTIFICATION_TYPE_SUCCESS);
+        $notificationManager->createTrivialNotification(Application::get()->getRequest()->getUser()->getId(), NOTIFICATION_TYPE_SUCCESS);
 
 
     }
