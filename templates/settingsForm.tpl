@@ -319,7 +319,7 @@
         <div class="webhook-input">
             <input type="text" id="webhookUrl" name="webhookUrl">
             <div class="webhook-buttons">
-                {fbvElement type="button" class="testWebhook" id="testWebhook"}
+                {fbvElement type="button" class="testWebhook" label="plugins.generic.webhook.settings.testWebhook" id="testWebhook"}
                 <label class="switch">
                     <input type="checkbox" name="webhookDisabled" id="webhookDisabled" value=1
                         {if !isset($webhookData.disabled) || !$webhookData.disabled}checked{/if}>
@@ -339,7 +339,7 @@
         </ul>
     </div>
     <form class="pkp_form" id="webhookSettingsForm" method="post"
-        action="{url router=$smarty.const.ROUTE_COMPONENT op="manage" category="generic" plugin=$pluginName verb="settings" save=true}">
+        action="{url router=PKP\core\PKPApplication::ROUTE_COMPONENT op="manage" category="generic" plugin=$pluginName verb="settings" save=true}">
         {csrf}
 
         {include file="controllers/notification/inPlaceNotification.tpl" notificationId="webhookNotification"}

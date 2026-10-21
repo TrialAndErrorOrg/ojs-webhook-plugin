@@ -60,9 +60,6 @@ msgstr "Remove"
 msgid "plugins.generic.webhook.manager.settings.saveWebhook"
 msgstr "Save changes"
 
-msgid "plugins.generic.webhook.settings.addWebhook"
-msgstr "+"
-
 msgid "plugins.generic.webhook.settings.disableWebhook"
 msgstr "Disable"
 
