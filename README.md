@@ -2,6 +2,8 @@
 Webhook Plugin
 ==============
 
+This branch is for OJS 3.5 (plugin version 2.x). The OJS 3.3 version is on `main` (1.1.0.0).
+
 The Webhook Plugin is an easy-to-use, flexible, and powerful solution for OJS/OMP that allows you to send notifications to external services when various events occur in your application. This plugin allows you to configure multiple webhooks per event and customize the data sent to each webhook. Additionally, the plugin provides an extensible interface for developers to add custom events and data providers.
 
 Table of Contents
@@ -66,25 +68,25 @@ This way, you get access to the default webhook events. By modifying this array,
 
 ```php
 $defaultEvents = [
-    ['publicationEdit', 'Publication::validate', [$this, 'handleEditPublication']],
-    ['decision', 'EditorAction::recordDecision', [$this, 'editorDecision']],
-    ['add', 'Submission::add', [$this, 'addSubmission']],
-    ['confirmReview', 'ReviewerAction::confirmReview', [$this, 'confirmReview']],
-    ['updateStatus', 'Submission::updateStatus', [$this, 'updateStatus']],
+    ['publicationEdit', 'Publication::edit', $this->editPublication(...)],
+    ['decision', 'Decision::add', $this->decision(...)],
+    ['add', 'Submission::add', $this->addSubmission(...)],
+    ['confirmReview', 'ReviewerAction::confirmReview', $this->confirmReview(...)],
+    ['updateStatus', 'Submission::updateStatus', $this->updateStatus(...)],
 ];
 ```
 
 To use this hook in your own plugin, register it like this:
 
 ```php
-HookRegistry::register('Plugin::Webhook::addEvent', [$this, 'handleAddWebhookEvents']);
+Hook::add('Plugin::Webhook::addEvent', $this->handleAddWebhookEvents(...));
 ```
 
 You can then define a method `handleAddWebhookEvents` which gets access to the default webhook events. By modifying this array, you can alter the available options. Make sure to inform your users that you are doing this.
 
 ### Webhook API Endpoint
 
-There is an API endpoint you can use to send webhooks from the frontend, although it is only accessible to administrators at the moment. The endpoint is located at `/api/v1/webhook` and accepts the following parameters:
+There is an API endpoint you can use to send webhooks from the frontend, although it is only accessible to administrators at the moment. The endpoint is located at `/{journal}/api/v1/webhook` and accepts the following parameters:
 
 *   `event`: (string) The name of the event.
 *   `data`: (any) The data to include in the webhook payload.
@@ -112,6 +114,8 @@ For e.g. publications, the data looks like
 ```json
 ```
 
+Objects such as submissions are sent as OJS serializes them, with their fields under `_data`.
+
 The following events are currently supported:
 
 *   `publicationEdit`: Triggered when a publication is edited. The data returned includes the publication ID, the submission ID, and the user ID of the editor who made the change.
@@ -119,3 +123,15 @@ The following events are currently supported:
 *   `add`: Triggered when a submission is added. The data returned includes the submission ID, the user ID of the editor who added the submission, and the submission title.
 *   `confirmReview`: Triggered when a reviewer confirms a review. The data returned includes the submission ID, the user ID of the reviewer who confirmed the review, and the review ID.
 *   `updateStatus`: Triggered when a submission's status is updated. The data returned includes the submission ID, the user ID of the editor who updated the status, and the new status.
+
+Changes from the OJS 3.3 version
+--------------------------------
+
+Event names, settings and the payload shape are the same, so existing settings and consumers keep working. Differences:
+
+*   `publicationEdit` fires after an edit (`Publication::edit`) instead of during validation, and `publication` is the edited publication as the REST API returns it. It also includes `submission`.
+*   `decision` uses OJS 3.5's decisions. `decision` holds the decision's fields plus `decisionLabel` (the 3.3 labels, so `skipReview` still means "send to review") and `decisionText` (OJS's own name for the decision). `recommendation` is true for an editor's recommendation, and `result` is always `null`.
+*   `add` no longer includes `request`.
+*   `confirmReview` adds `reviewer` (`id`, `fullName`). `email` is the mailable OJS sends the editors.
+*   Webhooks go to the journal of the submission, so events fired outside a journal page (jobs, the CLI) reach the right URLs. Requests time out after 10 seconds.
+

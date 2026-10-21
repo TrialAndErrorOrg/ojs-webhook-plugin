@@ -4,7 +4,7 @@
 <!--
   * plugins/generic/webhook/version.xml
   *
-  * Copyright (c) 2023 Thomas F. K. Jorna, Center of Trial and Error
+  * Copyright (c) 2023-2026 Thomas F. K. Jorna, Center of Trial and Error
   * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
   *
   * Plugin version information.
@@ -12,8 +12,8 @@
 <version>
   <application>webhook</application>
   <type>plugins.generic</type>
-  <release>1.1.0.0</release>
-  <date>2022-06-13</date>
+  <release>2.0.0.0</release>
+  <date>2026-10-21</date>
   <lazy-load>1</lazy-load>
   <class>WebhookPlugin</class>
 </version>
